@@ -26,7 +26,7 @@ The purpose of this code challenge is to build an admin dashboard with authentic
    - Add the option to remove an existing product (should be removed from the database as well).
    - Add a logout button that redirects to the login page. 
    - Make the page responsive for mobile and desktop devices.
-6. When you are done, send us the link to your GitHub repository with a clear readme file and any other details required for us to runn the app
+6. When you are done, send us the link to your GitHub repository with a clear readme file and any other details required for us to run the app
 
 ## Bonus
 Bonus points for adding a search bar in the admin dashboard to search for products. 
