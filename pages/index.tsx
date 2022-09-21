@@ -38,7 +38,7 @@ const Logo = styled.div`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 20px;
   
   width: 100%;
   max-width: 450px;

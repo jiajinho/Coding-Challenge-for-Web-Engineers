@@ -1,5 +1,5 @@
 {
-  "name": "mighty-jaxx",
+  "name": "mighty-jaxx-fe",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/styled-components": "^5.1.26",
+    "axios": "^0.27.2",
     "gsap": "^3.11.1",
     "next": "12.3.1",
     "react": "18.2.0",
