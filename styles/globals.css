@@ -1,8 +1,14 @@
+/* font-family: 'Inter', sans-serif; */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
+
+/* font-family: 'Press Start 2P', cursive; */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 :root {
   --bg-color: #EFF3F9;
   --bg-alt-color: #FDFDFF;
+
+  --primary-color: #E9BB00;
   --danger-color: #dc3545;
 
   --page-padding: 0 20px;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   position: relative;
   border-radius: 8px;
   overflow: hidden;
@@ -24,7 +24,7 @@ const Button = styled.button`
   border: none;
   outline: none;
 
-  background: #1C64F2;
+  background: var(--primary-color);
   color: white;
   cursor: pointer;
 

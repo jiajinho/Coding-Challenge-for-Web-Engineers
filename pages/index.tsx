@@ -2,9 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 import config from 'config';
-import Input from 'components/Input';
-import Button from 'components/Button';
 import useForm from 'hooks/common/useForm';
+import Input from 'components/Input';
+import Button, { Wrapper as $Button } from 'components/Button';
+import MightyJaxx, { Wrapper as $MightyJaxx } from 'components/MightyJaxx';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -15,16 +16,37 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
+const Logo = styled.div`
+  align-self: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+
+  ${$MightyJaxx} { width: 130px }
+
+  p {
+    max-width: 250px;
+    line-height: 18px;
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    color: black;
+  }
+`;
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
   
   width: 100%;
   max-width: 450px;
   padding: 25px;
   border-radius: 8px;
   background: var(--bg-alt-color);
+
+  ${$Button} { margin-top: 20px }
 `;
 
 export default () => {
@@ -42,7 +64,13 @@ export default () => {
 
   return (
     <Wrapper>
+
       <Form>
+        <Logo>
+          <MightyJaxx />
+          <p>Web Engineer Coding Challenge</p>
+        </Logo>
+
         <Input
           label="Email"
           value={form.email}
