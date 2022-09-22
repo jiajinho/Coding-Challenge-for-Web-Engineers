@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import api from 'api';
+import api from 'src/api';
 
 const Wrapper = styled.div`
 

@@ -1,4 +1,4 @@
-import type { Viewport } from "types";
+import type { Viewport } from "src/types";
 
 const viewport: Viewport = {
   sm: "487px",

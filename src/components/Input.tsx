@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { applyStyleIf } from 'utils';
+import { applyStyleIf } from '../utils';
 
 const Wrapper = styled.div`
   position: relative;

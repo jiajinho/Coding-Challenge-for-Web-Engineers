@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import config from 'config';
-import useForm from 'hooks/common/useForm';
-import Input from 'components/Input';
-import Button, { Wrapper as $Button } from 'components/Button';
-import MightyJaxx, { Wrapper as $MightyJaxx } from 'components/MightyJaxx';
+import config from 'src/config';
+import useForm from 'src/hooks/common/useForm';
+import Input from 'src/components/Input';
+import Button, { Wrapper as $Button } from 'src/components/Button';
+import MightyJaxx, { Wrapper as $MightyJaxx } from 'src/components/MightyJaxx';
 
 const Wrapper = styled.div`
   height: 100%;
