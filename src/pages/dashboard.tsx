@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import api from 'api';
@@ -17,18 +17,19 @@ const Content = styled.section`
 
 export default () => {
 
-  // (async () => {
-  //   const x = await api.user.get();
-  //   const y = await api.product.get();
+  useEffect(() => {
+    (async () => {
+      const x = await api.product.post();
+      console.log(x);
+    })();
+  }, []);
 
-  //   console.log(x, y);
-  // })();
 
-  const mockProduct: Product[] = [
-    { id: '1', image: '2', title: 'title', description: 'sample' },
-    { id: '2', image: '2', title: 'title2', description: 'sample2' },
-    { id: '3', image: '2', title: 'title3', description: 'sample3' },
-  ]
+  // const mockProduct: Product[] = [
+  //   { id: '1', image: '2', title: 'title', description: 'sample' },
+  //   { id: '2', image: '2', title: 'title2', description: 'sample2' },
+  //   { id: '3', image: '2', title: 'title3', description: 'sample3' },
+  // ]
 
   return (
     <Wrapper>
@@ -36,21 +37,21 @@ export default () => {
 
       <Content>
         <Table
-          data={mockProduct}
+          data={[]}
           pageSize={10}
           columns={[
             // {
             //   title: "Id",
             //   render: r => r.id
             // },
-            {
-              title: "Image",
-              render: r => r.image
-            },
-            {
-              title: 'Title',
-              render: r => r.title
-            },
+            // {
+            //   title: "Image",
+            //   render: r => r.image
+            // },
+            // {
+            //   title: 'Title',
+            //   render: r => r.title
+            // },
             // {
             //   title: "Description",
             //   render: r => r.description

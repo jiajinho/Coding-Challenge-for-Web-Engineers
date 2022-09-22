@@ -7,10 +7,19 @@ export type Product = {
   description: string
 }
 
+const baseUrl = "product";
+
 async function get() {
-  return axios.get("product");
+  return axios.get(baseUrl);
+}
+
+async function post() {
+  return axios.post(baseUrl, {
+    sample: "data"
+  });
 }
 
 export default {
-  get
+  get,
+  post
 }
