@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import config from 'src/config';
-import useForm from 'src/hooks/common/useForm';
-import Input from 'src/components/Input';
-import Button, { Wrapper as $Button } from 'src/components/Button';
-import MightyJaxx, { Wrapper as $MightyJaxx } from 'src/components/MightyJaxx';
+import config from 'config';
+import useForm from 'hooks/common/useForm';
+import Input from 'components/common/Input';
+import Button, { Wrapper as $Button } from 'components/common/Button';
+import MightyJaxx, { Wrapper as $MightyJaxx } from 'components/common/MightyJaxx';
 
 const Wrapper = styled.div`
   height: 100%;
-  padding: var(--page-padding);
+  padding: 0 var(--page-h-padding);
 
   display: flex;
   align-items: center;
