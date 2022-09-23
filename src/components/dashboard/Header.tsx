@@ -5,6 +5,7 @@ import MightyJaxx, { Wrapper as $MightyJaxx } from 'components/common/svg/Mighty
 
 const Wrapper = styled.header`
   position: sticky;
+  z-index: 10;
   top: 0;
   background: white;
   padding: 10px var(--page-h-padding);

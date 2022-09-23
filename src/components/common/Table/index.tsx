@@ -17,6 +17,8 @@ export const Row = styled.div(({ $gridWidth }: { $gridWidth: string }) => `
 export const Header = styled(Row)`
   font-weight: bold;
   align-items: center;
+  border-bottom: 1px solid;
+  border-color: #ccc;
 `;
 
 export const Cell = styled.div`

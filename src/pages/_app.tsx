@@ -9,8 +9,7 @@ import useResponsive from 'hooks/useResponsive';
 
 const Wrapper = styled.main`
   background: var(--bg-color);
-  min-height: 600px;
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
