@@ -5,7 +5,7 @@ import config from 'config';
 import useForm from 'hooks/common/useForm';
 import Input from 'components/common/Input';
 import Button, { Wrapper as $Button } from 'components/common/Button';
-import MightyJaxx, { Wrapper as $MightyJaxx } from 'components/common/MightyJaxx';
+import MightyJaxx, { Wrapper as $MightyJaxx } from 'components/common/svg/MightyJaxx';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -50,11 +50,11 @@ const Form = styled.form`
 `;
 
 export default () => {
-  const { form, setForm } = useForm({
+  const [form, setForm] = useForm({
     email: "",
     password: "",
-    errEmail: false,
-    errPassword: false
+    errEmail: true,
+    errPassword: true
   });
 
   const handleLogin = (e: React.MouseEvent) => {
@@ -75,7 +75,7 @@ export default () => {
           label="Email"
           value={form.email}
           onChange={s => setForm({ email: s })}
-          onError={e => setForm({ errEmail: !(e === true) })}
+          onError={e => setForm({ errEmail: !!e })}
           validations={[
             { regex: config.regex.atLeastOneChar, errMessage: "Field is required" },
             { regex: config.regex.email, errMessage: 'Field is not in email format' }
@@ -87,7 +87,7 @@ export default () => {
           value={form.password}
           // type="password"
           onChange={s => setForm({ password: s })}
-          onError={e => setForm({ errPassword: !(e === true) })}
+          onError={e => setForm({ errPassword: !!e })}
           validations={[
             { regex: config.regex.atLeastOneChar, errMessage: "Field is required" }
           ]}

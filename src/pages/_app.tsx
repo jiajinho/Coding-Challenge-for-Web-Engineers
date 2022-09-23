@@ -1,6 +1,9 @@
 import '../globals.css';
+import 'react-toastify/dist/ReactToastify.css';
+
 import type { AppProps } from 'next/app';
 import styled from 'styled-components';
+import { ToastContainer } from 'react-toastify';
 
 import useResponsive from 'hooks/useResponsive';
 
@@ -17,6 +20,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Wrapper>
       <Component {...pageProps} />
+
+      <ToastContainer />
     </Wrapper>
   );
 }

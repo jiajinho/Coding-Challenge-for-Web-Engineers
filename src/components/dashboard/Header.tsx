@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import MightyJaxx, { Wrapper as $MightyJaxx } from 'components/common/MightyJaxx';
+import MightyJaxx, { Wrapper as $MightyJaxx } from 'components/common/svg/MightyJaxx';
 
 const Wrapper = styled.header`
   position: sticky;

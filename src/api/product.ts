@@ -1,22 +1,23 @@
 import { instance as axios } from "api";
 
 export type Product = {
-  id: string,
+  _id: string,
+  imageB64: string | null,
+  sku: string,
   title: string,
-  image: string,
-  description: string
+  description: string | null
 }
 
 const baseUrl = "product";
 
 async function get() {
-  return axios.get(baseUrl);
+  const result = await axios.get<Product[]>(baseUrl);
+  return result.data;
 }
 
-async function post() {
-  return axios.post(baseUrl, {
-    sample: "data"
-  });
+async function post(body: Omit<Product, "_id">) {
+  const result = await axios.post<boolean>(baseUrl, body);
+  return result.data;
 }
 
 export default {

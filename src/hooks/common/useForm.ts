@@ -6,7 +6,7 @@ export interface Setter<T extends Object> {
   (args: { [V in keyof T]?: T[V] }): void
 }
 
-export default <T extends Object>(init: Readonly<{ [V in keyof T]: T[V] }>) => {
+export default <T extends Object>(init: Readonly<{ [V in keyof T]: T[V] }>): [T, Setter<T>] => {
   const form = useState<T>(init);
 
   const setForm: Setter<T> = args => {
@@ -21,5 +21,5 @@ export default <T extends Object>(init: Readonly<{ [V in keyof T]: T[V] }>) => {
     })
   }
 
-  return { form: form[0], setForm }
+  return [form[0], setForm];
 }

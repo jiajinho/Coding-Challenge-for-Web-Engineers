@@ -58,7 +58,7 @@ export default ({ label, validations, value, onChange, onError, ...props }: {
   validations?: Validation[],
   value: string | number,
   onChange?: (s: string) => void,
-  onError?: (v: Validation | true) => void,
+  onError?: (v: Validation | undefined) => void,
 } & Omit<JSX.IntrinsicElements["input"], "ref" | "onChange" | "value">) => {
 
   const [error, setError] = useState<string>()
@@ -82,7 +82,7 @@ export default ({ label, validations, value, onChange, onError, ...props }: {
         break;
       } else {
         setError(undefined);
-        onError && onError(true);
+        onError && onError(undefined);
       }
     }
   }
