@@ -80,6 +80,7 @@ export default ({ visible }: {
       });
 
       toast.success("Item added successfully");
+      visible[1](false);
 
       setForm({
         image: undefined,

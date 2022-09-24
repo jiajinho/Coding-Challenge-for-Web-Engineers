@@ -8,7 +8,7 @@ import Button, { Wrapper as $Button } from 'components/common/Button';
 import MightyJaxx, { Wrapper as $MightyJaxx } from 'components/common/svg/MightyJaxx';
 
 const Wrapper = styled.div`
-  height: 100%;
+  min-height: 100vh;
   padding: 0 var(--page-h-padding);
 
   display: flex;

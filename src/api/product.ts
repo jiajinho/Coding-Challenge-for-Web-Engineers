@@ -5,7 +5,7 @@ export type Product = {
   imageB64: string | null,
   sku: string,
   title: string,
-  description: string | null
+  description: string | null,
 }
 
 const baseUrl = "product";
@@ -20,7 +20,14 @@ async function post(body: Omit<Product, "_id">) {
   return result.data;
 }
 
+async function destroy(_id: string) {
+  const result = await axios.delete(`${baseUrl}/${_id}`);
+  console.log(result);
+  return result.data;
+}
+
 export default {
   get,
-  post
+  post,
+  delete: destroy
 }

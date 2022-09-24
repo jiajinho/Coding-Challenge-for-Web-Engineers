@@ -1,5 +1,4 @@
-import React from 'react';
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Wrapper = styled.div`
   position: relative;
@@ -7,7 +6,7 @@ export const Wrapper = styled.div`
   overflow: hidden;
 `;
 
-const Backdrop = styled.div`
+export const Backdrop = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -16,12 +15,13 @@ const Backdrop = styled.div`
   background: white;
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   position: relative;
   z-index: 2;
   width: 100%;
-  padding: 12px 20px;
-  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--primary-color);
   outline: none;
 
   background: var(--primary-color);
@@ -32,15 +32,3 @@ const Button = styled.button`
 
   &:hover { opacity: 0.85 }
 `;
-
-export default ({ children, ...props }: {
-  children: string
-} & Omit<JSX.IntrinsicElements["button"], "ref">) => (
-  <Wrapper>
-    <Backdrop />
-
-    <Button {...props}>
-      {children}
-    </Button>
-  </Wrapper>
-);
