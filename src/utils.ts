@@ -4,11 +4,11 @@ export function applyStyleIf(predicate: boolean, css: string) {
 }
 
 export function toBase64(file: File) {
-  return new Promise<string | ArrayBuffer | null>((resolve, reject) => {
+  return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
 
-    reader.onload = () => resolve(reader.result);
+    reader.onload = () => resolve(reader.result as string);
     reader.onerror = (e) => reject(e);
   });
 }

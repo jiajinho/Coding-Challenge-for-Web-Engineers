@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 
 import UploadCloud, { Wrapper as $UploadCloud } from './svg/UploadCloud';
 import Refresh, { Wrapper as $Refresh } from './svg/Refresh';
+import { toBase64 } from 'utils';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -76,8 +77,8 @@ const Mask = styled.div`
 `;
 
 export default ({ value, onChange, maxKb = 512 }: {
-  value?: File,
-  onChange?: (f: File) => void,
+  value?: string,
+  onChange?: (b64: string) => void,
   maxKb?: number
 }) => {
   const input = useRef<HTMLInputElement>(null);
@@ -86,7 +87,7 @@ export default ({ value, onChange, maxKb = 512 }: {
     input.current?.click();
   }
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || !e.target.files.length) return;
 
     const file = e.target.files[0];
@@ -95,7 +96,8 @@ export default ({ value, onChange, maxKb = 512 }: {
       toast.error(`Image size cannot exceed ${maxKb}kb`);
     }
     else {
-      onChange && onChange(file);
+      const b64 = await toBase64(file);
+      onChange && onChange(b64);
     }
   }
 
@@ -111,7 +113,7 @@ export default ({ value, onChange, maxKb = 512 }: {
       {value &&
         <ImageContainer onClick={triggerImageChange}>
           <Image
-            src={URL.createObjectURL(value)}
+            src={value}
             layout="fill"
             objectFit="cover"
           />

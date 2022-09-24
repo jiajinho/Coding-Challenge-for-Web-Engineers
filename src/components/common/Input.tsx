@@ -3,22 +3,32 @@ import styled from 'styled-components';
 
 import { applyStyleIf } from 'utils';
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   position: relative;
   margin-top: 10px;
   background: inherit;
 `;
 
-const Label = styled.label(({ $error }: { $error: boolean }) => `
+export const Label = styled.label(({ $error }: { $error: boolean }) => `
   position: absolute;
   top: 0;
   left: 6px;
   transform: translateY(-50%);
 
-  background: inherit;
   padding: 0 5px;
   font-size: 11px;
   cursor: auto;
+
+  &:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0%;
+    height: 58%;
+    width: 100%;
+    left: 0;
+    background: white;
+  }
 
   ${applyStyleIf($error, `
     color: var(--danger-color);

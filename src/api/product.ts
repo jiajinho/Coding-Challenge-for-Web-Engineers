@@ -20,6 +20,11 @@ async function post(body: Omit<Product, "_id">) {
   return result.data;
 }
 
+async function put(body: Product) {
+  const result = await axios.put(`${baseUrl}/${body._id}`, body);
+  return result.data;
+}
+
 async function destroy(_id: string) {
   const result = await axios.delete(`${baseUrl}/${_id}`);
   console.log(result);
@@ -29,5 +34,6 @@ async function destroy(_id: string) {
 export default {
   get,
   post,
+  put,
   delete: destroy
 }

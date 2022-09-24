@@ -6,7 +6,7 @@ import type { Product } from 'api/product';
 
 import Button from 'components/common/Button';
 import Header from 'components/dashboard/Header';
-import CreateModal from 'components/dashboard/CreateModal';
+import UpsertModal from 'components/dashboard/UpsertModal';
 import ProductCard from 'components/dashboard/ProductCard';
 import DeleteModal from 'components/dashboard/DeleteModal';
 
@@ -39,7 +39,7 @@ export default () => {
   const [item, setItem] = useState<Product>();
 
   const modalVisible = {
-    create: useState(false),
+    upsert: useState(false),
     delete: useState(false)
   }
 
@@ -50,9 +50,19 @@ export default () => {
     })();
   }, []);
 
+  const handleAdd = () => {
+    setItem(undefined);
+    modalVisible.upsert[1](true);
+  }
+
   const handleDelete = (p: Product) => {
     setItem(p);
     modalVisible.delete[1](true);
+  }
+
+  const handleEdit = (p: Product) => {
+    setItem(p);
+    modalVisible.upsert[1](true);
   }
 
   return (
@@ -63,7 +73,7 @@ export default () => {
         <Toolbar>
           <h1>Product List</h1>
 
-          <Button onClick={() => modalVisible.create[1](true)}>
+          <Button onClick={handleAdd}>
             Add
           </Button>
         </Toolbar>
@@ -73,13 +83,14 @@ export default () => {
             <ProductCard
               key={i}
               data={p}
+              onEdit={handleEdit}
               onDelete={handleDelete}
             />
           ))}
         </ProductGroup>
       </Content>
 
-      <CreateModal visible={modalVisible.create} />
+      <UpsertModal visible={modalVisible.upsert} data={[item, setItem]} />
       <DeleteModal visible={modalVisible.delete} data={[item, setItem]} />
     </Wrapper>
   );

@@ -5,6 +5,7 @@ export const Wrapper = styled.svg`
   aspect-ratio: 1/1;
   height: auto;
   width: auto;
+  cursor: pointer;
 `;
 
 export default ({ color = "black", ...props }: {

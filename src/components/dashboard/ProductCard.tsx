@@ -68,15 +68,20 @@ const ActionTab = styled.div`
   ${$Trash}:hover path { fill: var(--danger-color) }
 `;
 
-export default ({ data, onDelete }: {
+export default ({ data, onDelete, onEdit }: {
   data: Product,
-  onDelete?: (p: Product) => void
+  onDelete?: (p: Product) => void,
+  onEdit?: (p: Product) => void
 }) => {
 
   const sm = useViewportStore(state => state.sm);
 
   const handleDelete = () => {
     onDelete && onDelete(data);
+  }
+
+  const handleEdit = () => {
+    onEdit && onEdit(data);
   }
 
   return (
@@ -102,7 +107,7 @@ export default ({ data, onDelete }: {
         </Data>
 
         <ActionTab>
-          <Edit />
+          <Edit onClick={handleEdit} />
           <Trash onClick={handleDelete} />
         </ActionTab>
       </Content>
