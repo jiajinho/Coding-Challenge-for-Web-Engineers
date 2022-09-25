@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import api from 'api';
@@ -45,6 +46,10 @@ const ProductGroup = styled.div`
 
 
 export default () => {
+  /**
+   * Hooks
+   */
+  const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
 
   const [page, setPage] = useState(0);
@@ -62,6 +67,9 @@ export default () => {
     })();
   }, []);
 
+  /**
+   * Not hook
+   */
   const handleAdd = () => {
     setItem(undefined);
     modalVisible.upsert[1](true);
@@ -80,6 +88,9 @@ export default () => {
   const pageStart = page * config.paginationSize;
   const pageEnd = pageStart + config.paginationSize;
 
+  /**
+   * Render
+   */
   return (
     <Wrapper>
       <Header />

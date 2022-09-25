@@ -1,4 +1,4 @@
-import { instance as axios } from "api";
+import axios from './axios';
 
 export type Product = {
   _id: string,

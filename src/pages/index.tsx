@@ -1,8 +1,13 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { toast } from 'react-toastify';
 
 import config from 'config';
+import api from 'api';
 import useForm from 'hooks/common/useForm';
+import { writeUserLocal } from 'utils';
+
 import Input from 'components/common/Input';
 import Button, { Wrapper as $Button } from 'components/common/Button';
 import MightyJaxx, { Wrapper as $MightyJaxx } from 'components/common/svg/MightyJaxx';
@@ -50,16 +55,29 @@ const Form = styled.form`
 `;
 
 export default () => {
+  const router = useRouter();
+
   const [form, setForm] = useForm({
-    email: "",
-    password: "",
-    errEmail: true,
-    errPassword: true
+    email: "admin@email.com",
+    password: "1234",
+    errEmail: false,
+    errPassword: false
   });
 
-  const handleLogin = (e: React.MouseEvent) => {
+  const handleLogin = async (e: React.MouseEvent) => {
     e.preventDefault();
-    console.log(form);
+
+    if (form.errEmail) return;
+    if (form.errPassword) return;
+
+    try {
+      const result = await api.user.login(form.email, form.password);
+
+      writeUserLocal(result);
+      toast.success("Login successful");
+
+      router.push("/dashboard");
+    } catch (e) { }
   }
 
   return (

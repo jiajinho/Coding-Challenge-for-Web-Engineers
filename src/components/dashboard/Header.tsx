@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
+import config from 'config';
 import MightyJaxx, { Wrapper as $MightyJaxx } from 'components/common/svg/MightyJaxx';
 
 const Wrapper = styled.header`
@@ -14,7 +16,30 @@ const Wrapper = styled.header`
   align-items: center;
   justify-content: space-between;
 
-  ${$MightyJaxx} { width: 60px }
+  ${$MightyJaxx} { 
+    flex-shrink: 0;
+    width: 60px;
+  }
+`;
+
+const Username = styled.p`
+  flex-grow: 1;
+  font-weight: bold;
+  margin-right: 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+`;
+
+const Divider = styled.div`
+  flex-shrink: 0;
+  margin: 0 5px;
+
+  height: 25px;
+  width: 1px;
+  background: #ddd;
 `;
 
 const Logout = styled.button`
@@ -30,13 +55,30 @@ const Logout = styled.button`
 `;
 
 export default () => {
+  const router = useRouter();
+
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setUsername(localStorage.getItem(config.localStorage.key.username)!);
+    }
+  }, [typeof window]);
+
   const handleLogout = () => {
-    console.log("logout");
+    localStorage.clear();
+    router.push("/");
   }
 
   return (
     <Wrapper>
       <MightyJaxx />
+
+      <Username>
+        {username}
+      </Username>
+
+      <Divider />
 
       <Logout onClick={handleLogout}>
         Logout

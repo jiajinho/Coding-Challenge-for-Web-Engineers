@@ -15,8 +15,17 @@ const regex = {
 
 const paginationSize = 2;
 
+const localStorage = {
+  key: {
+    authToken: "authToken",
+    username: "username",
+    email: "email"
+  }
+}
+
 export default {
   viewport,
   regex,
-  paginationSize
+  paginationSize,
+  localStorage
 }

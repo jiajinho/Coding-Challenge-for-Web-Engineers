@@ -10,7 +10,7 @@ const Wrapper = styled.div(({ $active, $clickable }: {
   width: 32px;
   height: 38px;
 
-  border-radius: 4px;
+  border-radius: 4px; 
   border: 2px solid var(--primary-color);
   position: relative;
   font-weight: 600;

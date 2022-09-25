@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { ToastContainer } from 'react-toastify';
 
 import useResponsive from 'hooks/useResponsive';
+import useCheckLogin from 'hooks/useCheckLogin';
 
 const Wrapper = styled.main`
   background: var(--bg-color);
@@ -14,6 +15,7 @@ const Wrapper = styled.main`
 
 function MyApp({ Component, pageProps }: AppProps) {
 
+  useCheckLogin();
   useResponsive();
 
   return (
