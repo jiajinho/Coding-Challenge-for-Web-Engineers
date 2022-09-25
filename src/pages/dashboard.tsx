@@ -12,6 +12,7 @@ import UpsertModal from 'components/dashboard/UpsertModal';
 import ProductCard from 'components/dashboard/ProductCard';
 import DeleteModal from 'components/dashboard/DeleteModal';
 import Pagination from 'components/common/Pagination';
+import EmptyBox, { Wrapper as $EmptyBox } from 'components/common/svg/EmptyBox';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -44,12 +45,23 @@ const ProductGroup = styled.div`
   }
 `;
 
+const EmptyProduct = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  opacity: 0.4;
+
+  h4 { font-weight: 500 }
+
+  ${$EmptyBox} { width: 200px }
+`;
+
 
 export default () => {
   /**
    * Hooks
    */
-  const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
 
   const [page, setPage] = useState(0);
@@ -105,6 +117,14 @@ export default () => {
         </Toolbar>
 
         <ProductGroup>
+          {products.length === 0 &&
+            <EmptyProduct>
+              <EmptyBox />
+              <h4>Product list is empty!</h4>
+              <h4>Try adding one by clicking the add button above.</h4>
+            </EmptyProduct>
+          }
+
           {products.slice(pageStart, pageEnd).map((p, i) => (
             <ProductCard
               key={i}
