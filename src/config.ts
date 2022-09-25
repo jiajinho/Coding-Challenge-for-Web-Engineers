@@ -13,7 +13,10 @@ const regex = {
   atLeastOneChar: /.+/
 }
 
+const paginationSize = 2;
+
 export default {
   viewport,
-  regex
+  regex,
+  paginationSize
 }

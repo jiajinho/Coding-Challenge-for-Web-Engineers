@@ -76,10 +76,6 @@ export default ({ visible, data }: {
     return () => { clearForm() }
   }, [data[0]]);
 
-  useEffect(() => {
-    if (!visible[0]) clearForm();
-  }, [visible[0], data[0]]);
-
   /**
    * Not hook
    */

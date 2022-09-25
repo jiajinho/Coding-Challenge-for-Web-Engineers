@@ -6,7 +6,6 @@ import config from 'config';
 import { Product } from 'api/product';
 import useViewportStore from 'stores/useViewportStore';
 
-
 import Edit, { Wrapper as $Edit } from 'components/common/svg/Edit';
 import Trash, { Wrapper as $Trash } from 'components/common/svg/Trash';
 
@@ -16,6 +15,11 @@ const Wrapper = styled.div`
 
   border-radius: 8px;
   overflow: hidden;
+
+  @media screen and (min-width: ${config.viewport.md}) {
+    flex-direction: column;
+    width: 250px;
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -26,6 +30,11 @@ const ImageContainer = styled.div`
   height: 80px;
   width: auto;
   background: red;
+
+  @media screen and (min-width: ${config.viewport.md}) {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 const Content = styled.div`
@@ -39,7 +48,16 @@ const Content = styled.div`
 const Data = styled.div`
   flex-grow: 1;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   p { margin-top: 5px }
+
+  @media screen and (min-width: ${config.viewport.md}) {
+    padding-bottom: 10px;
+    p { margin-top: 10px }
+  }
 `;
 
 const Title = styled.div`
@@ -48,8 +66,9 @@ const Title = styled.div`
 
   @media screen and (min-width: ${config.viewport.sm}) {
     flex-direction: row;
-    gap: 10px;
+    gap: 7px;
   }
+
 `;
 
 const ActionTab = styled.div`
@@ -99,8 +118,8 @@ export default ({ data, onDelete, onEdit }: {
       <Content>
         <Data>
           <Title>
-            <h2>#{data.sku}</h2>
-            <h2>{data.title}</h2>
+            <h3>#{data.sku}</h3>
+            <h3>{data.title}</h3>
           </Title>
 
           {sm && <p>{data.description}</p>}
