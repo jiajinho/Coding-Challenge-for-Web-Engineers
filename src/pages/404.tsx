@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styled from 'styled-components';
 
+import locale from 'locale';
 import Header from 'components/dashboard/Header';
 
 const Wrapper = styled.div`
@@ -64,12 +65,12 @@ export default () => {
         </ImageContainer>
 
         <Text>
-          <h4>404 Not Found</h4>
-          <h2>Whoops! That page doesn't exist.</h2>
+          <h4>{locale[404].title}</h4>
+          <h2>{locale[404].subtitle}</h2>
         </Text>
 
-        <p>You will be redirected back to previous page in {countdown} second.</p>
+        <p>{locale[404].countdown.replace("{{ 1 }}", countdown.toString())}</p>
       </Content>
     </Wrapper>
-  )
+  );
 }

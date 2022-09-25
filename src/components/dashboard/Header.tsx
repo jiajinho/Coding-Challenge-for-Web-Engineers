@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
+import locale from 'locale';
 import config from 'config';
 import MightyJaxx, { Wrapper as $MightyJaxx } from 'components/common/svg/MightyJaxx';
 
@@ -81,7 +82,7 @@ export default () => {
       <Divider />
 
       <Logout onClick={handleLogout}>
-        Logout
+        {locale.dashboard.header.logout}
       </Logout>
     </Wrapper>
   );

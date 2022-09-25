@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
+import locale from 'locale';
 import api from 'api';
 import config from 'config';
 import type { Product } from 'api/product';
@@ -109,10 +109,10 @@ export default () => {
 
       <Content>
         <Toolbar>
-          <h1>Product List</h1>
+          <h1>{locale.dashboard.toolbar.title}</h1>
 
           <Button onClick={handleAdd}>
-            Add
+            {locale.dashboard.toolbar.addButton}
           </Button>
         </Toolbar>
 
@@ -120,8 +120,8 @@ export default () => {
           {products.length === 0 &&
             <EmptyProduct>
               <EmptyBox />
-              <h4>Product list is empty!</h4>
-              <h4>Try adding one by clicking the add button above.</h4>
+              <h4>{locale.dashboard.emptyProduct.title}</h4>
+              <h4>{locale.dashboard.emptyProduct.subtitle}</h4>
             </EmptyProduct>
           }
 

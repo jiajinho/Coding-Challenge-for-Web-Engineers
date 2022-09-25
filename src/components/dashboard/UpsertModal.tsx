@@ -4,14 +4,13 @@ import { toast } from 'react-toastify';
 
 import api from 'api';
 import config from 'config';
-import useForm from 'hooks/common/useForm';
-import { toBase64 } from 'utils';
 import { Product } from 'api/product';
+import useForm from 'hooks/common/useForm';
 
 import Modal from 'components/common/Modal';
 import Input from 'components/common/Input';
 import UploadImage, { Wrapper as $UploadImage } from 'components/common/UploadImage';
-import Button, { Wrapper as $Button } from 'components/common/Button';
+import Button from 'components/common/Button';
 
 const Wrapper = styled.div`
   width: 70vw;
