@@ -12,7 +12,7 @@ Password: `1234`
 ## Architecture
 Frontend is created using Next.js and deployed on **Vercel**.
 
-Backend is created using Node.js with Express.js and deployed on **Heroku**.
+[Backend](https://github.com/jiajinho/mighty-jaxx-be) is created using Node.js with Express.js and deployed on **Heroku**.
 
 MongoDB is used as database and is hosted on **MongoDB Atlas**.
 
