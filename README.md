@@ -2,8 +2,7 @@
 
 This app is deployed on Vercel and is viewable [here](https://mighty-jaxx-challenge.vercel.app/).
 
-Email: `admin@email.com`
-
+Email: `admin@email.com` <br />
 Password: `1234`
 
 > The CRUD operation is performed on pessimistic basis.
