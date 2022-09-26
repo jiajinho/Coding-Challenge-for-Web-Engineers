@@ -85,7 +85,7 @@ export default ({ visible, data }: {
       });
     }
 
-    return () => { clearForm() }
+    return () => { clearForm(); clearError(); }
   }, [data[0]]);
 
   /**
@@ -99,6 +99,13 @@ export default ({ visible, data }: {
       sku: "",
       title: "",
       description: ""
+    });
+  }
+
+  const clearError = () => {
+    setError({
+      sku: "",
+      title: ""
     });
   }
 
@@ -118,7 +125,6 @@ export default ({ visible, data }: {
     setError(error);
 
     if (!form.imageB64) toast.error("Please upload an image");
-
     if (!form.imageB64 || error.sku || error.title) return;
 
     //Call API
@@ -155,6 +161,8 @@ export default ({ visible, data }: {
         title: data[0].title,
         description: data[0].description || "",
       });
+
+      clearError();
     }
   }
 
