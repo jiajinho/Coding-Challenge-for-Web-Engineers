@@ -22,7 +22,7 @@ const Wrapper = styled.div`
 `;
 
 const Content = styled.section`
-  padding: 20px var(--page-h-padding);
+  padding: 30px var(--page-h-padding);
 
   display: flex;
   flex-direction: column;
@@ -36,8 +36,8 @@ const ProductGroup = styled.div`
 
   @media screen and (min-width: ${config.viewport.md}) {
     flex-direction: row;
-    justify-content: space-around;
-    gap: 20px;
+    justify-content: center;
+    gap: 30px;
     flex-wrap: wrap;
   }
 `;

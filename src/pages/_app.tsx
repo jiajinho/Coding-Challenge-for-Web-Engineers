@@ -41,7 +41,7 @@ export default ({ Component, pageProps }: AppProps) => {
       </QueryClientProvider>
 
       <Footer href="https://github.com/jiajinho/Coding-Challenge-for-Web-Engineers">
-        https://github.com/jiajinho/Coding-Challenge-for-Web-Engineers
+        [Github repo]
       </Footer>
 
       <ToastContainer />
