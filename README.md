@@ -21,7 +21,7 @@ MongoDB is used as database and is hosted on MongoDB Atlas.
 ## Checklist
 ### Requirements
 - [x] React
-- [] Redux
+- [ ] Redux
 - [x] MongoDB
 
 > Instead of Redux, [zustand](https://github.com/pmndrs/zustand) is chosen for its simplicity of use.
