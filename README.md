@@ -14,7 +14,7 @@ Frontend is created using Next.js and deployed on **Vercel**.
 
 Backend is created using Node.js with Express.js and deployed on **Heroku**.
 
-MongoDB is used as database and is hosted on MongoDB Atlas.
+MongoDB is used as database and is hosted on **MongoDB Atlas**.
 
 ## Checklist
 ### Requirements
