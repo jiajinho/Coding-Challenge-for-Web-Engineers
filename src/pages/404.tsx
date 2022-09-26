@@ -50,7 +50,7 @@ export default () => {
     if (countdown === 0) {
       router.back();
     }
-  }, [countdown]);
+  }, [countdown, router]);
 
   return (
     <Wrapper>
@@ -59,6 +59,7 @@ export default () => {
       <Content>
         <ImageContainer>
           <Image
+            alt="404"
             src="/static/404.png"
             layout="fill"
           />

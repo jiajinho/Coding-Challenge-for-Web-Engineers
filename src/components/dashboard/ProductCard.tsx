@@ -108,6 +108,7 @@ export default ({ data, onDelete, onEdit }: {
       <ImageContainer>
         {data.imageB64 &&
           <Image
+            alt={data.title}
             src={data.imageB64}
             layout="fill"
             objectFit="cover"

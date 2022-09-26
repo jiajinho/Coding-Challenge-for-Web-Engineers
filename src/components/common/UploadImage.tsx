@@ -113,6 +113,7 @@ export default ({ value, onChange, maxKb = 512 }: {
       {value &&
         <ImageContainer onClick={triggerImageChange}>
           <Image
+            alt="upload-image"
             src={value}
             layout="fill"
             objectFit="cover"
