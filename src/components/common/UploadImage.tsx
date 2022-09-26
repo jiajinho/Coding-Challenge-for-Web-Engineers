@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
