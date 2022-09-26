@@ -14,6 +14,12 @@ async function login(email: string, password: string) {
   return result.data;
 }
 
+async function auth() {
+  const result = await axios.post<User>(`${baseUrl}/auth`);
+  return result.data;
+}
+
 export default {
-  login
+  login,
+  auth
 }

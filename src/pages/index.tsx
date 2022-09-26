@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
@@ -65,6 +65,25 @@ export default () => {
     errPassword: false
   });
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const authToken = localStorage.getItem(config.localStorage.key.authToken);
+    if (!authToken) return;
+
+    (async () => {
+      try {
+        const result = await api.user.auth();
+
+        writeUserLocal(result);
+        toast.success(locale.login.success);
+        router.push("/dashboard");
+      } catch (e) {
+        localStorage.clear();
+      }
+    })();
+  }, [typeof window !== "undefined"]);
+
   const handleLogin = async (e: React.MouseEvent) => {
     e.preventDefault();
 
@@ -75,8 +94,7 @@ export default () => {
       const result = await api.user.login(form.email, form.password);
 
       writeUserLocal(result);
-      toast.success("Login successful");
-
+      toast.success(locale.login.success);
       router.push("/dashboard");
     } catch (e) { }
   }

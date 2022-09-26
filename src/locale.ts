@@ -5,7 +5,8 @@ export default {
       email: "Email",
       password: "Password",
       submit: "Login"
-    }
+    },
+    success: "Login successful"
   },
 
   dashboard: {
