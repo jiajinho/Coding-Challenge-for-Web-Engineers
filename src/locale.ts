@@ -22,7 +22,7 @@ export default {
       subtitle: "Try adding one by clicking the add button above."
     },
     deleteModal: {
-      title: "Delete #{{ 1 }}?",
+      title: "Delete #{{ 1 }}",
       confirmation: "Are you sure you want to delete {{ 1 }}?",
       submit: "Delete",
       cancel: "Cancel",

@@ -71,9 +71,13 @@ export default () => {
     router.push("/");
   }
 
+  const handleLogoClick = () => {
+    window.open("https://mightyjaxx.com/", "_blank");
+  }
+
   return (
     <Wrapper>
-      <MightyJaxx />
+      <MightyJaxx onClick={handleLogoClick} />
 
       <Username>
         {username}
