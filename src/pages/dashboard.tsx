@@ -7,12 +7,12 @@ import config from 'config';
 import type { Product } from 'api/product';
 
 import Button from 'components/common/Button';
+import Pagination from 'components/common/Pagination';
 import Header from 'components/dashboard/Header';
 import UpsertModal from 'components/dashboard/UpsertModal';
 import ProductCard from 'components/dashboard/ProductCard';
 import DeleteModal from 'components/dashboard/DeleteModal';
-import Pagination from 'components/common/Pagination';
-import EmptyBox, { Wrapper as $EmptyBox } from 'components/common/svg/EmptyBox';
+import EmptyProduct from 'components/dashboard/EmptyProduct';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -44,19 +44,6 @@ const ProductGroup = styled.div`
     flex-wrap: wrap;
   }
 `;
-
-const EmptyProduct = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  opacity: 0.4;
-
-  h4 { font-weight: 500 }
-
-  ${$EmptyBox} { width: 200px }
-`;
-
 
 export default () => {
   /**
@@ -117,13 +104,7 @@ export default () => {
         </Toolbar>
 
         <ProductGroup>
-          {products.length === 0 &&
-            <EmptyProduct>
-              <EmptyBox />
-              <h4>{locale.dashboard.emptyProduct.title}</h4>
-              <h4>{locale.dashboard.emptyProduct.subtitle}</h4>
-            </EmptyProduct>
-          }
+          {products.length === 0 && <EmptyProduct />}
 
           {products.slice(pageStart, pageEnd).map((p, i) => (
             <ProductCard

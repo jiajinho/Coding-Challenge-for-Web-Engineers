@@ -12,10 +12,13 @@ const Wrapper = styled.div`
 
 const Content = styled.section`
   padding: 20px var(--page-h-padding);
+  text-align: center;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  p { color: #777 }
 `;
 
 const ImageContainer = styled.div`
@@ -28,7 +31,6 @@ const ImageContainer = styled.div`
 
 const Text = styled.div`
   margin: 15px 0;
-  text-align: center;
 
   h4 { 
     margin-bottom: 5px;
