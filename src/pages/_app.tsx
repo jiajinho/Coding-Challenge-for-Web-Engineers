@@ -18,8 +18,15 @@ const queryClient = new QueryClient({
 });
 
 const Wrapper = styled.main`
+  position: relative;
   background: var(--bg-color);
   min-height: 100vh;
+`;
+
+const Footer = styled.a`
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
 `;
 
 export default ({ Component, pageProps }: AppProps) => {
@@ -32,6 +39,10 @@ export default ({ Component, pageProps }: AppProps) => {
       <QueryClientProvider client={queryClient} >
         <Component {...pageProps} />
       </QueryClientProvider>
+
+      <Footer href="https://github.com/jiajinho/Coding-Challenge-for-Web-Engineers">
+        https://github.com/jiajinho/Coding-Challenge-for-Web-Engineers
+      </Footer>
 
       <ToastContainer />
     </Wrapper>
