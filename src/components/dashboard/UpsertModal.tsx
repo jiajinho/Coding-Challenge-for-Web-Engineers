@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
@@ -14,8 +14,10 @@ import Modal from 'components/common/Modal';
 import Input from 'components/common/Input';
 import UploadImage, { Wrapper as $UploadImage } from 'components/common/UploadImage';
 import Button from 'components/common/Button';
+import LoadingMask from 'components/common/LoadingMask';
 
 const Wrapper = styled.div`
+  position: relative;
   width: 70vw;
   max-width: 300px;
 `;
@@ -53,6 +55,8 @@ export default ({ visible, data }: {
   /**
    * Hooks
    */
+  const [loading, setLoading] = useState(false);
+
   const queryClient = useQueryClient();
 
   const mutateInsert = useMutation(api.product.post, {
@@ -61,7 +65,7 @@ export default ({ visible, data }: {
 
   const mutateUpdate = useMutation(api.product.put, {
     onSuccess: () => { queryClient.invalidateQueries(api.product.baseUrl) }
-  })
+  });
 
   const [error, setError] = useForm({
     sku: "",
@@ -85,7 +89,7 @@ export default ({ visible, data }: {
       });
     }
 
-    return () => { clearForm(); clearError(); }
+    return () => { clearForm() }
   }, [data[0]]);
 
   /**
@@ -100,6 +104,8 @@ export default ({ visible, data }: {
       title: "",
       description: ""
     });
+
+    clearError();
   }
 
   const clearError = () => {
@@ -128,6 +134,8 @@ export default ({ visible, data }: {
     if (!form.imageB64 || error.sku || error.title) return;
 
     //Call API
+    setLoading(true);
+
     try {
       if (!editMode) {
         await mutateInsert.mutateAsync({ ...form });
@@ -148,7 +156,9 @@ export default ({ visible, data }: {
 
         clearForm();
       }
-    } catch (e) { }
+    }
+    catch (e) { }
+    finally { setLoading(false) }
   }
 
   const handleReset = (e: React.MouseEvent) => {
@@ -172,6 +182,8 @@ export default ({ visible, data }: {
   return (
     <Modal visible={visible}>
       <Wrapper>
+        <LoadingMask visible={loading} />
+
         <Header>
           <h2>
             {!editMode ?

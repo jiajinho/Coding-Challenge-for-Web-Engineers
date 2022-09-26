@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
@@ -12,6 +12,7 @@ import { validateForm, writeUserLocal } from 'utils';
 import Input from 'components/common/Input';
 import Button, { Wrapper as $Button } from 'components/common/Button';
 import MightyJaxx, { Wrapper as $MightyJaxx } from 'components/common/svg/MightyJaxx';
+import LoadingMask from 'components/common/LoadingMask';
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -42,6 +43,9 @@ const Logo = styled.div`
 `;
 
 const Form = styled.form`
+  position: relative;
+  overflow: hidden;
+
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -60,6 +64,8 @@ export default () => {
    * Hooks
    */
   const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
 
   const [error, setError] = useForm({
     email: "",
@@ -112,13 +118,17 @@ export default () => {
     if (errors.email || errors.password) return;
 
     //Call API
+    setLoading(true);
+
     try {
       const result = await api.user.login(form.email, form.password);
 
       writeUserLocal(result);
       toast.success(locale.login.success);
       router.push("/dashboard");
-    } catch (e) { }
+    }
+    catch (e) { }
+    finally { setLoading(false); }
   }
 
   /**
@@ -128,6 +138,8 @@ export default () => {
     <Wrapper>
 
       <Form>
+        <LoadingMask visible={loading} />
+
         <Logo>
           <MightyJaxx />
           <p>{locale.login.title}</p>

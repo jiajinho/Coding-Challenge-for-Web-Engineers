@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
@@ -9,8 +9,11 @@ import { Product } from 'api/product';
 import Modal from 'components/common/Modal';
 import Button from 'components/common/Button';
 import locale from 'locale';
+import LoadingMask from 'components/common/LoadingMask';
 
 const Wrapper = styled.div`
+  position: relative;
+
   p {
     margin-top: 10px;
     margin-bottom: 20px;
@@ -30,6 +33,8 @@ export default ({ visible, data }: {
   /**
    * Hooks
    */
+  const [loading, setLoading] = useState(false);
+
   const queryClient = useQueryClient();
 
   const mutation = useMutation(api.product.delete, {
@@ -44,6 +49,8 @@ export default ({ visible, data }: {
   const handleDelete = async () => {
     if (!data[0]) return;
 
+    setLoading(true);
+
     try {
       await mutation.mutateAsync(data[0]._id);
 
@@ -51,7 +58,9 @@ export default ({ visible, data }: {
 
       data[1](undefined);
       visible[1](false);
-    } catch (e) { }
+    }
+    catch (e) { }
+    finally { setLoading(false) }
   }
 
   /**
@@ -60,6 +69,8 @@ export default ({ visible, data }: {
   return (
     <Modal visible={visible}>
       <Wrapper>
+        <LoadingMask visible={loading} />
+
         <h3>
           {locale.dashboard.deleteModal.title
             .replace("{{ 1 }}", data[0]?.sku || "")

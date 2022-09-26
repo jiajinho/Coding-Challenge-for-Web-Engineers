@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import LoadingMask from '../LoadingMask';
 import useAnimation from './useAnimation';
 
 export const Mask = styled.div`
