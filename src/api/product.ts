@@ -31,6 +31,7 @@ async function destroy(_id: string) {
 }
 
 export default {
+  baseUrl,
   get,
   post,
   put,

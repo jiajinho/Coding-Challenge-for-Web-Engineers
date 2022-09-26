@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 
 import api from 'api';
@@ -26,11 +27,25 @@ export default ({ visible, data }: {
   visible: [boolean, (b: boolean) => void],
   data: [Product | undefined, (d?: Product) => void]
 }) => {
+  /**
+   * Hooks
+   */
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(api.product.delete, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(api.product.baseUrl)
+    }
+  });
+
+  /**
+   * Not hook
+   */
   const handleDelete = async () => {
     if (!data[0]) return;
 
     try {
-      await api.product.delete(data[0]._id);
+      await mutation.mutateAsync(data[0]._id);
 
       toast.success(locale.dashboard.deleteModal.success.replace("{{ 1 }}", data[0].sku));
 
@@ -39,6 +54,9 @@ export default ({ visible, data }: {
     } catch (e) { }
   }
 
+  /**
+   * Render
+   */
   return (
     <Modal visible={visible}>
       <Wrapper>

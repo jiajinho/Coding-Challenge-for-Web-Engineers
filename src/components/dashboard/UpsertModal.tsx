@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 
 import api from 'api';
@@ -51,6 +52,16 @@ export default ({ visible, data }: {
   /**
    * Hooks
    */
+  const queryClient = useQueryClient();
+
+  const mutateInsert = useMutation(api.product.post, {
+    onSuccess: () => { queryClient.invalidateQueries(api.product.baseUrl) }
+  });
+
+  const mutateUpdate = useMutation(api.product.put, {
+    onSuccess: () => { queryClient.invalidateQueries(api.product.baseUrl) }
+  })
+
   const [form, setForm] = useForm({
     imageB64: "",
     sku: "",
@@ -101,7 +112,7 @@ export default ({ visible, data }: {
 
     try {
       if (!editMode) {
-        await api.product.post({ ...form });
+        await mutateInsert.mutateAsync({ ...form });
 
         toast.success(locale.dashboard.upsertModal.success.add);
         visible[1](false);
@@ -109,7 +120,7 @@ export default ({ visible, data }: {
         clearForm();
       }
       else {
-        await api.product.put({
+        await mutateUpdate.mutateAsync({
           _id: data[0]!._id,
           ...form
         });

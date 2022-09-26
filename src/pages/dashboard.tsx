@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useQuery } from 'react-query';
 
 import locale from 'locale';
 import api from 'api';
@@ -49,7 +50,7 @@ export default () => {
   /**
    * Hooks
    */
-  const [products, setProducts] = useState<Product[]>([]);
+  const query = useQuery(api.product.baseUrl, api.product.get);
 
   const [page, setPage] = useState(0);
   const [item, setItem] = useState<Product>();
@@ -58,13 +59,6 @@ export default () => {
     upsert: useState(false),
     delete: useState(false)
   }
-
-  useEffect(() => {
-    (async () => {
-      const products = await api.product.get();
-      setProducts(products);
-    })();
-  }, []);
 
   /**
    * Not hook
@@ -104,9 +98,9 @@ export default () => {
         </Toolbar>
 
         <ProductGroup>
-          {products.length === 0 && <EmptyProduct />}
+          {query?.data?.length === 0 && <EmptyProduct />}
 
-          {products.slice(pageStart, pageEnd).map((p, i) => (
+          {query?.data?.slice(pageStart, pageEnd).map((p, i) => (
             <ProductCard
               key={i}
               data={p}
@@ -117,7 +111,7 @@ export default () => {
         </ProductGroup>
 
         <Pagination
-          max={products.length}
+          max={query?.data?.length || 0}
           pageSize={config.paginationSize}
           page={[page, setPage]}
         />
