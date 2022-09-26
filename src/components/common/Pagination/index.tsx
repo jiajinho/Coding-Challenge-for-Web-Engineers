@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import Box from './Box';
@@ -16,9 +16,19 @@ export default ({ max, pageSize, page }: {
   pageSize: number,
   page: [number, (n: number) => void]
 }) => {
-  const maxPage = max ? Math.trunc(max / pageSize) : undefined;
+  let maxPage = max ? Math.trunc(max / pageSize) : undefined;
+
+  if (max && maxPage && max % pageSize === 0) {
+    maxPage--;
+  }
 
   const pages = usePagination({ page, maxPage, pageSize });
+
+  useEffect(() => {
+    if (typeof maxPage === "number" && page[0] > maxPage) {
+      page[1](maxPage);
+    }
+  }, [page[0], max]);
 
   const handleBoxClick = (index: number) => {
     page[1](index);
@@ -26,7 +36,7 @@ export default ({ max, pageSize, page }: {
 
   return (
     <Wrapper>
-      {pages.map((item, i) =>
+      {typeof maxPage === "number" ? pages.map((item, i) =>
         <Box
           key={i}
           onClick={item !== null ? () => handleBoxClick(item) : undefined}
@@ -34,7 +44,7 @@ export default ({ max, pageSize, page }: {
         >
           {item === null ? '...' : item + 1}
         </Box>
-      )}
+      ) : ''}
     </Wrapper>
   );
 }

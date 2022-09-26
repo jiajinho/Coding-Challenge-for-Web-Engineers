@@ -24,7 +24,7 @@ export const Label = styled.label(({ $error }: { $error: boolean }) => `
     position: absolute;
     z-index: -1;
     top: 0%;
-    height: 58%;
+    height: 60%;
     width: 100%;
     left: 0;
     background: white;

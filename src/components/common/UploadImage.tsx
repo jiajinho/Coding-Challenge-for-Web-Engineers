@@ -126,8 +126,11 @@ export default ({ value, onChange, maxKb = 512 }: {
       }
 
       <Input
-        ref={input} type="file"
-        accept="image/*" onChange={handleImageChange}
+        ref={input}
+        type="file"
+        accept="image/*"
+        value=""
+        onChange={handleImageChange}
       />
     </Wrapper>
   );
