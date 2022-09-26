@@ -11,7 +11,11 @@ import useCheckLogin from 'hooks/useCheckLogin';
 
 if (!process.env.NEXT_PUBLIC_API_ENDPOINT) throw Error("NEXT_PUBLIC_API_ENDPOINT not defined");
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: { staleTime: 1000 * 30 }
+  }
+});
 
 const Wrapper = styled.main`
   background: var(--bg-color);
@@ -25,7 +29,7 @@ export default ({ Component, pageProps }: AppProps) => {
 
   return (
     <Wrapper>
-      <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient} >
         <Component {...pageProps} />
       </QueryClientProvider>
 
