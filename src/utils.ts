@@ -29,3 +29,28 @@ export function verifyUserLocal() {
 
   return true;
 }
+
+
+type Validation = {
+  regex: RegExp,
+  errMessage: string
+}
+
+export function validateForm<T extends Object>(form: T, validations: { [k in keyof T]?: Validation[] }): { [k in keyof T]?: string } {
+  const errMessages: { [k in keyof T]?: string } = {};
+
+  for (const [k, v] of Object.entries(form)) {
+    const key = k as keyof T;
+
+    if (!validations[key]) continue;
+
+    for (let i = 0; i < validations[key]!.length; i++) {
+      if (!validations[key]![i].regex.test(v)) {
+        errMessages[key] = validations[key]![i].errMessage;
+        break;
+      }
+    }
+  }
+
+  return errMessages;
+}

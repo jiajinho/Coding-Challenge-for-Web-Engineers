@@ -15,6 +15,7 @@ const Wrapper = styled.div`
 
   border-radius: 8px;
   overflow: hidden;
+  box-shadow: 1px 1px 4px 3px #00000007;
 
   @media screen and (min-width: ${config.viewport.md}) {
     flex-direction: column;
@@ -29,7 +30,6 @@ const ImageContainer = styled.div`
   aspect-ratio: 1/1;
   height: 80px;
   width: auto;
-  background: red;
 
   @media screen and (min-width: ${config.viewport.md}) {
     width: 100%;

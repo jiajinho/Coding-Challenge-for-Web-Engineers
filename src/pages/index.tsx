@@ -7,7 +7,7 @@ import locale from 'locale';
 import config from 'config';
 import api from 'api';
 import useForm from 'hooks/common/useForm';
-import { writeUserLocal } from 'utils';
+import { validateForm, writeUserLocal } from 'utils';
 
 import Input from 'components/common/Input';
 import Button, { Wrapper as $Button } from 'components/common/Button';
@@ -56,15 +56,22 @@ const Form = styled.form`
 `;
 
 export default () => {
+  /**
+   * Hooks
+   */
   const router = useRouter();
+
+  const [error, setError] = useForm({
+    email: "",
+    password: ""
+  });
 
   const [form, setForm] = useForm({
     email: "admin@email.com",
     password: "1234",
-    errEmail: false,
-    errPassword: false
   });
 
+  //Check if auth token exist in local storage, if yes then call API to validate directly and login
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -84,12 +91,27 @@ export default () => {
     })();
   }, [typeof window !== "undefined"]);
 
+  /**
+   * Not hook
+   */
   const handleLogin = async (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (form.errEmail) return;
-    if (form.errPassword) return;
+    //Validation
+    const errors = validateForm(form, {
+      email: [
+        { regex: config.regex.atLeastOneChar, errMessage: locale.validation.emptyField },
+        { regex: config.regex.email, errMessage: locale.validation.notInEmailFormat }
+      ],
+      password: [
+        { regex: config.regex.atLeastOneChar, errMessage: locale.validation.emptyField }
+      ]
+    });
 
+    setError(errors);
+    if (errors.email || errors.password) return;
+
+    //Call API
     try {
       const result = await api.user.login(form.email, form.password);
 
@@ -99,6 +121,9 @@ export default () => {
     } catch (e) { }
   }
 
+  /**
+   * Render
+   */
   return (
     <Wrapper>
 
@@ -112,11 +137,7 @@ export default () => {
           label={locale.login.form.email}
           value={form.email}
           onChange={s => setForm({ email: s })}
-          onError={e => setForm({ errEmail: !!e })}
-          validations={[
-            { regex: config.regex.atLeastOneChar, errMessage: locale.validation.emptyField },
-            { regex: config.regex.email, errMessage: locale.validation.notInEmailFormat }
-          ]}
+          error={error.email}
         />
 
         <Input
@@ -124,10 +145,7 @@ export default () => {
           value={form.password}
           type="password"
           onChange={s => setForm({ password: s })}
-          onError={e => setForm({ errPassword: !!e })}
-          validations={[
-            { regex: config.regex.atLeastOneChar, errMessage: locale.validation.emptyField }
-          ]}
+          error={error.password}
         />
 
         <Button onClick={handleLogin}>

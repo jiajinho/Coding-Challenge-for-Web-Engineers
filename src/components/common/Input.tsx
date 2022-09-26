@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { applyStyleIf } from 'utils';
@@ -58,61 +58,39 @@ const Error = styled.p`
   color: var(--danger-color);
 `;
 
-type Validation = {
-  regex: RegExp,
-  errMessage: string
-}
-
-export default ({ label, validations, value, onChange, onError, ...props }: {
+export default ({ label, value, onChange, error, ...props }: {
   label: string,
-  validations?: Validation[],
   value: string | number,
   onChange?: (s: string) => void,
-  onError?: (v: Validation | undefined) => void,
+  error?: string
 } & Omit<JSX.IntrinsicElements["input"], "ref" | "onChange" | "value">) => {
 
-  const [error, setError] = useState<string>()
+  const [_error, setError] = useState<string>();
+
+  useEffect(() => {
+    setError(error);
+  }, [error]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange && onChange(e.target.value);
     setError(undefined);
   }
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    props.onBlur && props.onBlur(e);
-
-    if (!validations || !validations.length) return;
-
-    for (let i = 0; i < validations.length; i++) {
-      const v = validations[i];
-
-      if (!v.regex.test(value.toString())) {
-        setError(v.errMessage);
-        onError && onError(v);
-        break;
-      } else {
-        setError(undefined);
-        onError && onError(undefined);
-      }
-    }
-  }
-
   return (
     <Wrapper>
-      <Label $error={!!error}>
+      <Label $error={!!_error}>
         {label}
       </Label>
 
       <Input
         {...props}
-        $error={!!error}
+        $error={!!_error}
         value={value}
-        onBlur={handleBlur}
         onChange={handleChange}
       />
 
       <Error>
-        {error}
+        {_error}
       </Error>
     </Wrapper>
   )

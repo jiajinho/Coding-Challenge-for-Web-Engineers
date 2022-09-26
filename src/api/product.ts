@@ -2,7 +2,7 @@ import axios from './axios';
 
 export type Product = {
   _id: string,
-  imageB64: string | null,
+  imageB64: string,
   sku: string,
   title: string,
   description: string | null,

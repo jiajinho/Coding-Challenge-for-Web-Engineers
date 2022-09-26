@@ -5,14 +5,15 @@ import { toast } from 'react-toastify';
 
 import api from 'api';
 import config from 'config';
+import locale from 'locale';
 import { Product } from 'api/product';
 import useForm from 'hooks/common/useForm';
+import { validateForm } from 'utils';
 
 import Modal from 'components/common/Modal';
 import Input from 'components/common/Input';
 import UploadImage, { Wrapper as $UploadImage } from 'components/common/UploadImage';
 import Button from 'components/common/Button';
-import locale from 'locale';
 
 const Wrapper = styled.div`
   width: 70vw;
@@ -62,14 +63,16 @@ export default ({ visible, data }: {
     onSuccess: () => { queryClient.invalidateQueries(api.product.baseUrl) }
   })
 
+  const [error, setError] = useForm({
+    sku: "",
+    title: "",
+  });
+
   const [form, setForm] = useForm({
     imageB64: "",
     sku: "",
     title: "",
-    description: "",
-
-    errSku: true,
-    errTitle: true
+    description: ""
   });
 
   useEffect(() => {
@@ -79,8 +82,6 @@ export default ({ visible, data }: {
         sku: data[0].sku,
         title: data[0].title,
         description: data[0].description || "",
-        errSku: false,
-        errTitle: false
       });
     }
 
@@ -97,19 +98,30 @@ export default ({ visible, data }: {
       imageB64: "",
       sku: "",
       title: "",
-      description: "",
-
-      errSku: true,
-      errTitle: true
+      description: ""
     });
   }
 
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (form.errSku) { return; }
-    if (form.errTitle) { return; }
+    //Validate form
+    const error = validateForm(form, {
+      sku: [
+        { regex: config.regex.atLeastOneChar, errMessage: locale.validation.emptyField }
+      ],
+      title: [
+        { regex: config.regex.atLeastOneChar, errMessage: locale.validation.emptyField }
+      ]
+    });
 
+    setError(error);
+
+    if (!form.imageB64) toast.error("Please upload an image");
+
+    if (!form.imageB64 || error.sku || error.title) return;
+
+    //Call API
     try {
       if (!editMode) {
         await mutateInsert.mutateAsync({ ...form });
@@ -138,13 +150,10 @@ export default ({ visible, data }: {
 
     if (data[0]) {
       setForm({
-        imageB64: data[0].imageB64 || "",
+        imageB64: data[0].imageB64,
         sku: data[0].sku,
         title: data[0].title,
         description: data[0].description || "",
-
-        errSku: false,
-        errTitle: false
       });
     }
   }
@@ -174,21 +183,15 @@ export default ({ visible, data }: {
             label={locale.dashboard.upsertModal.form.sku}
             value={form.sku}
             onChange={s => setForm({ sku: s })}
-            onError={e => setForm({ errSku: !!e })}
+            error={error.sku}
             disabled={editMode}
-            validations={[
-              { regex: config.regex.atLeastOneChar, errMessage: locale.validation.emptyField }
-            ]}
           />
 
           <Input
             label={locale.dashboard.upsertModal.form.title}
             value={form.title}
             onChange={s => setForm({ title: s })}
-            onError={e => setForm({ errTitle: !!e })}
-            validations={[
-              { regex: config.regex.atLeastOneChar, errMessage: locale.validation.emptyField }
-            ]}
+            error={error.title}
           />
 
           <Input
