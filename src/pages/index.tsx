@@ -51,7 +51,7 @@ const Form = styled.form`
   gap: 20px;
   
   width: 100%;
-  max-width: 450px;
+  max-width: 350px;
   padding: 25px;
   border-radius: 8px;
   background: var(--bg-alt-color);

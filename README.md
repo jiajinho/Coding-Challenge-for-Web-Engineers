@@ -43,3 +43,4 @@ MongoDB is used as database and is hosted on MongoDB Atlas.
 - [x] Added a search bar in the admin dashboard to search for products.
 - [x] Using jsonwebtoken to authenticate the user directly when token exists in local storage.
 - [x] Added spinner animation to indicate loading process.
+- [x] Added a 404 page.
