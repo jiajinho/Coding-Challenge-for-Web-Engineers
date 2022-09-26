@@ -73,8 +73,8 @@ export default () => {
   });
 
   const [form, setForm] = useForm({
-    email: "admin@email.com",
-    password: "1234",
+    email: "",
+    password: "",
   });
 
   //Check if auth token exist in local storage, if yes then call API to validate directly and login
