@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
 
+import locale from 'locale';
 import config from 'config';
 import api from 'api';
 import useForm from 'hooks/common/useForm';
@@ -86,33 +87,33 @@ export default () => {
       <Form>
         <Logo>
           <MightyJaxx />
-          <p>Web Engineer Coding Challenge</p>
+          <p>{locale.login.title}</p>
         </Logo>
 
         <Input
-          label="Email"
+          label={locale.login.form.email}
           value={form.email}
           onChange={s => setForm({ email: s })}
           onError={e => setForm({ errEmail: !!e })}
           validations={[
-            { regex: config.regex.atLeastOneChar, errMessage: "Field is required" },
-            { regex: config.regex.email, errMessage: 'Field is not in email format' }
+            { regex: config.regex.atLeastOneChar, errMessage: locale.validation.emptyField },
+            { regex: config.regex.email, errMessage: locale.validation.notInEmailFormat }
           ]}
         />
 
         <Input
-          label="Password"
+          label={locale.login.form.password}
           value={form.password}
-          // type="password"
+          type="password"
           onChange={s => setForm({ password: s })}
           onError={e => setForm({ errPassword: !!e })}
           validations={[
-            { regex: config.regex.atLeastOneChar, errMessage: "Field is required" }
+            { regex: config.regex.atLeastOneChar, errMessage: locale.validation.emptyField }
           ]}
         />
 
         <Button onClick={handleLogin}>
-          Login
+          {locale.login.form.submit}
         </Button>
       </Form>
     </Wrapper>

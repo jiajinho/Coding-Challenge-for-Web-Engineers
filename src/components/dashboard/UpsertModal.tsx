@@ -11,6 +11,7 @@ import Modal from 'components/common/Modal';
 import Input from 'components/common/Input';
 import UploadImage, { Wrapper as $UploadImage } from 'components/common/UploadImage';
 import Button from 'components/common/Button';
+import locale from 'locale';
 
 const Wrapper = styled.div`
   width: 70vw;
@@ -102,20 +103,18 @@ export default ({ visible, data }: {
       if (!editMode) {
         await api.product.post({ ...form });
 
-        toast.success("Item added successfully");
+        toast.success(locale.dashboard.upsertModal.success.add);
         visible[1](false);
 
         clearForm();
       }
       else {
-        console.log("huh");
-
         await api.product.put({
           _id: data[0]!._id,
           ...form
         });
 
-        toast.success("Item updated successfully");
+        toast.success(locale.dashboard.upsertModal.success.edit);
         visible[1](false);
 
         clearForm();
@@ -148,8 +147,8 @@ export default ({ visible, data }: {
         <Header>
           <h2>
             {!editMode ?
-              "Add an item" :
-              `Edit #${data[0]!.sku}`
+              locale.dashboard.upsertModal.title.add :
+              locale.dashboard.upsertModal.title.edit.replace("{{ 1 }}", data[0]!.sku)
             }
           </h2>
         </Header>
@@ -161,40 +160,40 @@ export default ({ visible, data }: {
           />
 
           <Input
-            label="SKU"
+            label={locale.dashboard.upsertModal.form.sku}
             value={form.sku}
             onChange={s => setForm({ sku: s })}
             onError={e => setForm({ errSku: !!e })}
             disabled={editMode}
             validations={[
-              { regex: config.regex.atLeastOneChar, errMessage: "Required" }
+              { regex: config.regex.atLeastOneChar, errMessage: locale.validation.emptyField }
             ]}
           />
 
           <Input
-            label="Title"
+            label={locale.dashboard.upsertModal.form.title}
             value={form.title}
             onChange={s => setForm({ title: s })}
             onError={e => setForm({ errTitle: !!e })}
             validations={[
-              { regex: config.regex.atLeastOneChar, errMessage: "Required" }
+              { regex: config.regex.atLeastOneChar, errMessage: locale.validation.emptyField }
             ]}
           />
 
           <Input
-            label="Description"
+            label={locale.dashboard.upsertModal.form.description}
             value={form.description}
             onChange={s => setForm({ description: s })}
           />
 
           <ButtonGroup>
             <Button onClick={handleSubmit}>
-              Submit
+              {locale.dashboard.upsertModal.form.submit}
             </Button>
 
             {editMode &&
               <Button.Ghost onClick={handleReset}>
-                Reset
+                {locale.dashboard.upsertModal.form.reset}
               </Button.Ghost>
             }
           </ButtonGroup>

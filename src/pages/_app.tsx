@@ -8,12 +8,14 @@ import { ToastContainer } from 'react-toastify';
 import useResponsive from 'hooks/useResponsive';
 import useCheckLogin from 'hooks/useCheckLogin';
 
+if (!process.env.NEXT_PUBLIC_API_ENDPOINT) throw Error("NEXT_PUBLIC_API_ENDPOINT not defined");
+
 const Wrapper = styled.main`
   background: var(--bg-color);
   min-height: 100vh;
 `;
 
-function MyApp({ Component, pageProps }: AppProps) {
+export default ({ Component, pageProps }: AppProps) => {
 
   useCheckLogin();
   useResponsive();
@@ -26,5 +28,3 @@ function MyApp({ Component, pageProps }: AppProps) {
     </Wrapper>
   );
 }
-
-export default MyApp

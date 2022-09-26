@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import config from "config";
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3010',
+  baseURL: process.env.NEXT_PUBLIC_API_ENDPOINT,
   timeout: 5000
 });
 

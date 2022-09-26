@@ -27,7 +27,6 @@ async function put(body: Product) {
 
 async function destroy(_id: string) {
   const result = await axios.delete(`${baseUrl}/${_id}`);
-  console.log(result);
   return result.data;
 }
 

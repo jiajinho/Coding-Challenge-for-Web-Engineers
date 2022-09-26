@@ -7,6 +7,7 @@ import { Product } from 'api/product';
 
 import Modal from 'components/common/Modal';
 import Button from 'components/common/Button';
+import locale from 'locale';
 
 const Wrapper = styled.div`
   p {
@@ -31,7 +32,7 @@ export default ({ visible, data }: {
     try {
       await api.product.delete(data[0]._id);
 
-      toast.success(`${data[0].sku} deleted`);
+      toast.success(locale.dashboard.deleteModal.success.replace("{{ 1 }}", data[0].sku));
 
       data[1](undefined);
       visible[1](false);
@@ -42,20 +43,24 @@ export default ({ visible, data }: {
     <Modal visible={visible}>
       <Wrapper>
         <h3>
-          {`Delete #${data[0]?.sku}`}
+          {locale.dashboard.deleteModal.title
+            .replace("{{ 1 }}", data[0]?.sku || "")
+          }
         </h3>
 
         <p>
-          {`Are you sure you want to delete ${data[0]?.title}?`}
+          {locale.dashboard.deleteModal.confirmation
+            .replace("{{ 1 }}", data[0]?.title || "")
+          }
         </p>
 
         <ButtonGroup>
           <Button onClick={handleDelete}>
-            Delete
+            {locale.dashboard.deleteModal.submit}
           </Button>
 
           <Button.Ghost onClick={() => visible[1](false)}>
-            Cancel
+            {locale.dashboard.deleteModal.cancel}
           </Button.Ghost>
         </ButtonGroup>
       </Wrapper>
