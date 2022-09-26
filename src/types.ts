@@ -4,3 +4,8 @@ export type Viewport = {
   lg: string,
   xl: string
 };
+
+export type Validation = {
+  regex: RegExp,
+  errMessage: string
+}

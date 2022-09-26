@@ -14,6 +14,8 @@ import UpsertModal from 'components/dashboard/UpsertModal';
 import ProductCard from 'components/dashboard/ProductCard';
 import DeleteModal from 'components/dashboard/DeleteModal';
 import EmptyProduct from 'components/dashboard/EmptyProduct';
+import Toolbar from 'components/dashboard/Toolbar';
+import { escapeSpecialChar } from 'utils';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -25,12 +27,6 @@ const Content = styled.section`
   display: flex;
   flex-direction: column;
   gap: 25px;
-`;
-
-const Toolbar = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 `;
 
 const ProductGroup = styled.div`
@@ -60,6 +56,8 @@ export default () => {
     delete: useState(false)
   }
 
+  const [filterTitle, setFilterTitle] = useState("");
+
   /**
    * Not hook
    */
@@ -78,6 +76,14 @@ export default () => {
     modalVisible.upsert[1](true);
   }
 
+  const data = query?.data?.filter((p) => {
+    if (filterTitle === "") return true;
+
+    const regexStr = escapeSpecialChar(filterTitle);
+
+    return new RegExp(regexStr, 'i').test(p.title);
+  }) || [];
+
   const pageStart = page * config.paginationSize;
   const pageEnd = pageStart + config.paginationSize;
 
@@ -89,18 +95,15 @@ export default () => {
       <Header />
 
       <Content>
-        <Toolbar>
-          <h1>{locale.dashboard.toolbar.title}</h1>
-
-          <Button onClick={handleAdd}>
-            {locale.dashboard.toolbar.addButton}
-          </Button>
-        </Toolbar>
+        <Toolbar
+          onAdd={handleAdd}
+          title={[filterTitle, setFilterTitle]}
+        />
 
         <ProductGroup>
-          {query?.data?.length === 0 && <EmptyProduct />}
+          {data.length === 0 && <EmptyProduct />}
 
-          {query?.data?.slice(pageStart, pageEnd).map((p, i) => (
+          {data.slice(pageStart, pageEnd).map((p, i) => (
             <ProductCard
               key={i}
               data={p}
@@ -111,7 +114,7 @@ export default () => {
         </ProductGroup>
 
         <Pagination
-          max={query?.data?.length || 0}
+          max={data.length || 0}
           pageSize={config.paginationSize}
           page={[page, setPage]}
         />

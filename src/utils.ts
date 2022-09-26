@@ -1,5 +1,6 @@
-import { User } from "api/user";
 import config from "config";
+import { User } from "api/user";
+import { Validation } from "types";
 
 export function applyStyleIf(predicate: boolean, css: string) {
   if (predicate) return css;
@@ -30,12 +31,6 @@ export function verifyUserLocal() {
   return true;
 }
 
-
-type Validation = {
-  regex: RegExp,
-  errMessage: string
-}
-
 export function validateForm<T extends Object>(form: T, validations: { [k in keyof T]?: Validation[] }): { [k in keyof T]?: string } {
   const errMessages: { [k in keyof T]?: string } = {};
 
@@ -53,4 +48,19 @@ export function validateForm<T extends Object>(form: T, validations: { [k in key
   }
 
   return errMessages;
+}
+
+export function escapeSpecialChar(regex: string) {
+  const whitelist = /[\.\+\*\?\^\$\(\)\[\]\{\}\|\\]/;
+
+  const list = [];
+
+  for (let i = 0; i < regex.length; i++) {
+    const char = regex.charAt(i);
+    const isSpecial = whitelist.test(char);
+
+    isSpecial ? list.push(`\\${char}`) : list.push(char);
+  }
+
+  return list.join('');
 }
