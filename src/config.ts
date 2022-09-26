@@ -15,7 +15,7 @@ const regex = {
 
 const paginationSize = 10;
 
-const maxDescLength = 60;
+const maxDescLength = 50;
 
 const localStorage = {
   key: {

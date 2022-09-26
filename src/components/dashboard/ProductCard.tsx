@@ -74,6 +74,10 @@ const Title = styled.div`
   @media screen and (min-width: ${config.viewport.md}) {
     flex-direction: column;
     gap: 2px;
+
+    & > h3:first-child {
+      font-size: 16px;
+    }
   }
 `;
 
