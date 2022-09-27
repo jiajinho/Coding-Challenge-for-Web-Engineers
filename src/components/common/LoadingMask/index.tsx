@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import useAnimation from './useAnimation';
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   position: absolute;
   z-index: 200;
   top: 0;
