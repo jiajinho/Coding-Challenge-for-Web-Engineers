@@ -17,6 +17,8 @@ const Wrapper = styled.header`
   align-items: center;
   justify-content: space-between;
 
+  box-shadow: 0 1px 6px 1px #0001;
+
   ${$MightyJaxx} { 
     flex-shrink: 0;
     width: 60px;
