@@ -56,6 +56,8 @@ const Data = styled.div`
 
   @media screen and (min-width: ${config.viewport.md}) {
     padding-bottom: 10px;
+    justify-content: start;
+
     p { margin-top: 10px }
   }
 `;
@@ -69,6 +71,14 @@ const Title = styled.div`
     gap: 7px;
   }
 
+  @media screen and (min-width: ${config.viewport.md}) {
+    flex-direction: column;
+    gap: 2px;
+
+    & > h3:first-child {
+      font-size: 16px;
+    }
+  }
 `;
 
 const ActionTab = styled.div`
@@ -92,7 +102,6 @@ export default ({ data, onDelete, onEdit }: {
   onDelete?: (p: Product) => void,
   onEdit?: (p: Product) => void
 }) => {
-
   const sm = useViewportStore(state => state.sm);
 
   const handleDelete = () => {
@@ -101,6 +110,12 @@ export default ({ data, onDelete, onEdit }: {
 
   const handleEdit = () => {
     onEdit && onEdit(data);
+  }
+
+  let description = data.description || "";
+
+  if (data.description && data.description.length > config.maxDescLength) {
+    description = `${data.description.slice(0, config.maxDescLength - 3)}...`;
   }
 
   return (
@@ -123,7 +138,11 @@ export default ({ data, onDelete, onEdit }: {
             <h3>{data.title}</h3>
           </Title>
 
-          {sm && <p>{data.description}</p>}
+          {sm &&
+            <p title={data.description || undefined}>
+              {description}
+            </p>
+          }
         </Data>
 
         <ActionTab>

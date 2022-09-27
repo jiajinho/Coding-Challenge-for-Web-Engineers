@@ -4,7 +4,7 @@ import config from "config";
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_ENDPOINT,
-  timeout: 5000
+  timeout: 1000 * 10 //second
 });
 
 instance.interceptors.request.use((req) => {

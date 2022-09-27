@@ -36,8 +36,8 @@ const ProductGroup = styled.div`
 
   @media screen and (min-width: ${config.viewport.md}) {
     flex-direction: row;
-    justify-content: space-around;
-    gap: 20px;
+    justify-content: center;
+    gap: 30px;
     flex-wrap: wrap;
   }
 `;

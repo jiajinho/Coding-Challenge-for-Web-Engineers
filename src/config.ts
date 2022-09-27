@@ -13,7 +13,9 @@ const regex = {
   atLeastOneChar: /.+/
 }
 
-const paginationSize = 2;
+const paginationSize = 10;
+
+const maxDescLength = 50;
 
 const localStorage = {
   key: {
@@ -27,5 +29,6 @@ export default {
   viewport,
   regex,
   paginationSize,
+  maxDescLength,
   localStorage
 }
